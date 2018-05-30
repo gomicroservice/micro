@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  web:
+    build:
+      context: ./frontend/web
+    ports: 
+      - 3000:3000
+  
+  auth:
+    build:
+      context: ./backend/auth
+    ports: 
+      - 8081:8081
+    environment: 
+      - ZIPKIN_URL=http://zipkin:9411/api/v2/spans
+  
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
